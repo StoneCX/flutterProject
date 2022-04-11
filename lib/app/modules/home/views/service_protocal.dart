@@ -67,7 +67,7 @@ class ServiceProtocolPage extends GetView<ServiceProtocolController> {
                           Colors.grey.shade400),
                     ),
                     onPressed: () {
-                      Get.to(ServiceProtocolPage());
+                      Get.to(() => ServiceProtocolPage());
                     },
                     child: Text(
                       "精匠用户注册协议",
@@ -86,7 +86,7 @@ class ServiceProtocolPage extends GetView<ServiceProtocolController> {
                       overlayColor: MaterialStateProperty.all<Color>(
                           Colors.grey.shade400),
                     ),
-                    onPressed: () {Get.to(ServiceProtocolPage());},
+                    onPressed: () {Get.to(() => ServiceProtocolPage());},
                     child: Text(
                       "隐私政策",
                       style: TextStyle(fontSize: 11, color: Color(0xFF333333)),

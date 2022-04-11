@@ -1,4 +1,5 @@
-import 'package:craftsman/app/modules/home/controllers/home_controller.dart';
+
+import 'package:craftsman/app/modules/home/controllers/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -17,7 +18,7 @@ class SubmitButton extends StatefulWidget {
 }
 
 class _SubmitButtonState extends State<SubmitButton> {
-  var homeLogic = Get.find<HomeController>();
+  var homeLogic = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {

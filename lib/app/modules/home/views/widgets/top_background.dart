@@ -1,4 +1,4 @@
-import 'package:craftsman/app/modules/home/views/home_view.dart';
+
 import 'package:craftsman/app/modules/home/views/widgets/load_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';

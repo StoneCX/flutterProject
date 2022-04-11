@@ -14,7 +14,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
   late ProgressDialog pr;
   @override
   Widget build(BuildContext context) {
-    pr = new ProgressDialog(context, ProgressDialogType.Normal);
+    pr = ProgressDialog(context, ProgressDialogType.Normal);
     pr.setMessage('Verifying account...');
     return Scaffold(
       body: SingleChildScrollView(
@@ -48,7 +48,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       Future.delayed(const Duration(milliseconds: 1500), () {
                         setState(() {
                           pr.hide();
-                          Get.to(HomeView());
+                          Get.to(() => HomeView());
                         });
                       });
                     },
@@ -63,7 +63,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                 ),
                 GestureDetector(
                   onTap: () => {
-                    Get.to(HomeView())
+                    Get.to(() => HomeView())
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 4.0),

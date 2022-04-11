@@ -1,5 +1,4 @@
 import 'package:craftsman/app/modules/home/views/widgets/code_input.dart';
-import 'package:craftsman/app/modules/home/views/widgets/top_background.dart';
 import 'package:craftsman/app/modules/home/views/widgets/verify_top_back.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +17,15 @@ class VerifyCodeView extends StatelessWidget {
                   child: CodeInput(
                     length: 6,
                     keyboardType: TextInputType.number,
-                    builder: WigetBuilders.lightRectangle(),
+                    // builder: CodeInputBuilders.lightRectangle(),
+                    builder: CodeInputBuilders.simulatorTextField(
+                      totalSize: Size(55, 35), 
+                      emptySize: Size(32, 32), 
+                      filledSize: Size(32, 32), 
+                      emptyDecoration: BoxDecoration(),
+                       filledDecoration: BoxDecoration(), 
+                       emptyTextStyle: TextStyle(color: Color(0xFF999999),fontSize: 18), 
+                       filledTextStyle: TextStyle(color: Color(0xFF333333),fontSize: 18)),
                     onFilled: (value) async {
                       print('Your input is $value.');
                       // pr.show();

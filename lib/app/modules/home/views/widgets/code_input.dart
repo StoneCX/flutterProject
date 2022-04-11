@@ -2,8 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// typedef CodeBuilder = Widget Function(bool hasFocus, String char);
-typedef WigetBuilder = Widget Function(bool hasFocus, String char);
+typedef CodeInputBuilder = Widget Function(bool hasFocus, String char);
 
 class CodeInput extends StatefulWidget {
   CodeInput._({
@@ -23,7 +22,7 @@ class CodeInput extends StatefulWidget {
     FocusNode? focusNode,
     TextInputType keyboardType = TextInputType.text,
     List<TextInputFormatter>? inputFormatters,
-    required WigetBuilder builder,
+    required CodeInputBuilder builder,
     void Function(String value)? onChanged,
     void Function(String value)? onFilled,
   }) {
@@ -51,7 +50,7 @@ class CodeInput extends StatefulWidget {
 
   final List<TextInputFormatter> inputFormatters;
   /// in my head this thought as WidgetBuilder
-  final WigetBuilder builder;
+  final CodeInputBuilder builder;
 
   final void Function(String value)? onChanged;
 
@@ -60,11 +59,10 @@ class CodeInput extends StatefulWidget {
   static List<TextInputFormatter> _createInputFormatters(
       int length, TextInputType keyboardType) {
     final formatters = <TextInputFormatter>[
-      LengthLimitingTextInputFormatter(length)
+      LengthLimitingTextInputFormatter(length)//Creates a formatter that prevents the insertion of more characters than a limit.
     ];
 
     if (keyboardType == TextInputType.number) {
-      // formatters.add(WhitelistingTextInputFormatter(RegExp('^[0-9]*\$')));
       formatters.add(FilteringTextInputFormatter.allow(RegExp('^[0-9]*\$')));
     }
 
@@ -118,13 +116,6 @@ class _CodeInputState extends State<CodeInput> {
                 final hasFocus = controller.selection.start == i;
                 final char = i < text.length ? text[i] : '';
                 final characterEntity = widget.builder(hasFocus, char);
-
-                // assert(
-                //     characterEntity != null,
-                //     'The builder for the character entity at position $i '
-                //     'returned null. It did${hasFocus ? ' not' : ''} have the '
-                //     'focus and the character passed to it was \'$char\'.');
-
                 return characterEntity;
               }),
             ),
@@ -133,8 +124,8 @@ class _CodeInputState extends State<CodeInput> {
   }
 }
 
-abstract class WigetBuilders {
-  static WigetBuilder containerized({
+abstract class CodeInputBuilders {
+  static CodeInputBuilder containerized({
     Duration animationDuration = const Duration(milliseconds: 50),
     required Size totalSize,
     required Size emptySize,
@@ -159,7 +150,49 @@ abstract class WigetBuilders {
         ));
   }
 
-  static WigetBuilder circle(
+  ///模拟文本输入框
+  static CodeInputBuilder simulatorTextField({
+    Duration animationDuration = const Duration(milliseconds: 50),
+    required Size totalSize,
+    required Size emptySize,
+    required Size filledSize,
+    required BoxDecoration emptyDecoration,
+    required BoxDecoration filledDecoration,
+    required TextStyle emptyTextStyle,
+    required TextStyle filledTextStyle,
+  }) {
+    return (bool hasFocus, String char) => Container(
+        width: totalSize.width,
+        height: totalSize.height,
+        alignment: Alignment.center,
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 100),
+          decoration: char.isEmpty ? emptyDecoration : filledDecoration,
+          width: char.isEmpty ? emptySize.width : filledSize.width,
+          height: char.isEmpty ? emptySize.height : filledSize.height,
+          alignment: Alignment.center,
+          child: Row(
+            children: [
+                // SizedBox(width: 10,),
+                Column(
+                  children: [
+                    Text(char,
+                        style: char.isEmpty ? emptyTextStyle : filledTextStyle),
+                    Spacer(),
+                    Container(
+                      width: char.isEmpty ? emptySize.width : filledSize.width,
+                      height: 1,
+                      color: char.isEmpty ? Color(0xFF999999) : Color(0xFF333333),
+                    )  
+                  ],
+                ),
+                // SizedBox(width: 10,),
+            ],
+          ),
+        ));
+  }
+
+  static CodeInputBuilder circle(
       {double totalRadius = 30.0,
       double emptyRadius = 10.0,
       double filledRadius = 25.0,
@@ -182,7 +215,7 @@ abstract class WigetBuilders {
         filledTextStyle: textStyle);
   }
 
-  static WigetBuilder rectangle(
+  static CodeInputBuilder rectangle(
       {double totalWidth = 30.0,
       double emptyWidth = 10.0,
       double filledWidth = 25.0,
@@ -212,7 +245,7 @@ abstract class WigetBuilders {
         filledTextStyle: textStyle);
   }
 
-  static WigetBuilder darkCircle({
+  static CodeInputBuilder darkCircle({
     double totalRadius = 25.0,
     double emptyRadius = 14.0,
     double filledRadius = 15.0,
@@ -229,7 +262,7 @@ abstract class WigetBuilders {
     // return 
   }
 
-  static WigetBuilder lightRectangle({
+  static CodeInputBuilder lightRectangle({
     double totalWidth = 35.0,
     double emptyWidth = 28.0,
     double filledWidth = 32.0,
@@ -238,7 +271,7 @@ abstract class WigetBuilders {
       totalWidth: totalWidth,
       emptyWidth: emptyWidth,
       filledWidth: filledWidth,
-      color: Color(0xFF999999),
+      color: Colors.white,
       emptyColor: Colors.grey.shade300,
       textStyle: TextStyle(
           color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),

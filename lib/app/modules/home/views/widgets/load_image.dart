@@ -7,7 +7,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 /// 图片加载（支持本地与网络图片）
 class LoadImage extends StatelessWidget {
-  LoadImage(
+  const LoadImage(
     this.image, {
     Key? key,
     this.width,
@@ -19,9 +19,9 @@ class LoadImage extends StatelessWidget {
     this.cacheHeight,
   }) : super(key: key);
 
-  String? image;
-  double? width;
-  double? height;
+  final String? image;
+  final double? width;
+  final double? height;
   final BoxFit fit;
   final String format;
   final String holderImg;
@@ -30,21 +30,23 @@ class LoadImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (image == null) image = '';
-    if (image!.isEmpty ||
-        image!.startsWith('http') ||
-        image!.startsWith('https')) {
+    var imageUrl ='';
+    image != null ? imageUrl = image! : imageUrl = '';
+    // var image = imageUrl ?? '';
+    if (imageUrl.isEmpty ||
+        imageUrl.startsWith('http') ||
+        imageUrl.startsWith('https')) {
       if (Platform.isFuchsia) {
         // print('image: ~~~~~~~~~~~~~ $image');
         return FadeInImage.memoryNetwork(
           placeholder: kTransparentImage,
-          image: image!,
+          image: imageUrl,
         );
       } else {
         final Widget _image =
             LoadAssetImage(holderImg, height: height, width: width, fit: fit);
         return CachedNetworkImage(
-          imageUrl: image!,
+          imageUrl: imageUrl,
           placeholder: (_, __) => _image,
           errorWidget: (_, __, dynamic error) => _image,
           width: width,
@@ -56,7 +58,7 @@ class LoadImage extends StatelessWidget {
       }
     } else {
       return LoadAssetImage(
-        image!,
+        imageUrl,
         height: height,
         width: width,
         fit: fit,
@@ -92,7 +94,7 @@ class LoadImage extends StatelessWidget {
   }
 
   static Widget circleAvatar(String url, double radius,
-      {holderImg: 'placeholder.png'}) {
+      {holderImg='placeholder.png'}) {
     return CircleAvatar(
       radius: radius,
       backgroundColor: Colors.transparent,
@@ -116,8 +118,8 @@ class LoadAssetImage extends StatelessWidget {
       : super(key: key);
 
   final String image;
-  double? width;
-  double? height;
+  final double? width;
+  final double? height;
   final int? cacheWidth;
   final int? cacheHeight;
   final BoxFit fit;

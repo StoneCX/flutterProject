@@ -1,4 +1,5 @@
 import 'package:craftsman/app/modules/home/controllers/home_controller.dart';
+import 'package:craftsman/app/modules/home/controllers/login_controller.dart';
 import 'package:craftsman/app/modules/home/views/widgets/load_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
@@ -13,7 +14,7 @@ class EditText extends StatelessWidget {
     required this.title,
   });
 
-  var homeLogic = Get.find<HomeController>();
+  var homeLogic = Get.find<LoginController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,11 +28,10 @@ class EditText extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 TextButton(
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.grey.shade100),
-                    overlayColor:
-                        MaterialStateProperty.all<Color>(Colors.grey.shade300),
+                  style: TextButton.styleFrom(
+                    primary: Colors.grey.shade100,
+                    onSurface: Colors.grey.shade300,
+                    padding: EdgeInsets.only(left: 0, right: 0),
                   ),
                   onPressed: () {
                     print("selectCountry");
@@ -80,9 +80,9 @@ class EditText extends StatelessWidget {
                     textInputAction: TextInputAction.done,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.only(left: 0),
                       fillColor: Colors.transparent,
                       hintText: title,
-
                       constraints: BoxConstraints(maxHeight: 5),
                       //移除maxlength counter
                       counterText: "",
