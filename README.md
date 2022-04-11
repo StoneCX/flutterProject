@@ -13,6 +13,9 @@ https://github.com/jonataslaw/get_cli
 ## Getx 文档
 https://github.com/jonataslaw/getx/blob/master/README.zh-cn.md
 
+## flutter 约束，与iOS，H5都不同，需要认真看下，不然会有很多难理解的布局问题
+https://docs.flutter.dev/development/ui/layout/constraints
+
 ## 用到的框架，工具，概念
 - GetX 用于状态管理，路由管理，依赖管理
     - https://github.com/jonataslaw/getx/blob/master/README.zh-cn.md
