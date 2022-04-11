@@ -1,6 +1,9 @@
 # 说明
 公司Flutter基础功能模版项目
 
+## VPN (可选)
+https://i.sw15.icu/EvIV
+
 ## Flutter 的安装
 https://flutter.cn/docs/get-started/install
 
